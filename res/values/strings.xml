@@ -6,4 +6,6 @@
     <string name="hello_world">Hello world!</string>
 	<string name="defend">Make a course</string>
     <string name="attack">Play a course</string>
+    <string name="title_activity_attack">Run Spy Run - Attack</string>
+    <string name="title_activity_defend">Run Spy Run - Make Course</string>
 </resources>
