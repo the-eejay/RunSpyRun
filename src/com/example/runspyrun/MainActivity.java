@@ -1,5 +1,11 @@
 package com.example.runspyrun;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -10,23 +16,27 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity {
     
-	private EditText longEdit;
-	private EditText latEdit;
+	private EditText addressEdit;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        longEdit = (EditText)findViewById(R.id.longedit);
-        latEdit = (EditText)findViewById(R.id.latedit);
+        addressEdit = (EditText)findViewById(R.id.address);
     }
     
     @SuppressLint("NewApi")
 	public void makeCourse(View view) {
     	Intent intent = new Intent(this, DefendActivity.class);
-    	if (!longEdit.getText().toString().isEmpty()) {
-	    	intent.putExtra("longitude", Double.parseDouble(longEdit.getText().toString()));
-	    	intent.putExtra("latitude", Double.parseDouble(latEdit.getText().toString()));
+    	if(!addressEdit.getText().toString().isEmpty()){
+    	Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());     
+    	 try {
+    	        List<Address> address = geoCoder.getFromLocationName(addressEdit.getText().toString(), 1);    
+    	        intent.putExtra("latitude",address.get(0).getLatitude());
+    	        intent.putExtra("longitude", address.get(0).getLongitude());            
+    	    } catch (IOException e) {
+    	        e.printStackTrace();
+    	    }
     	}
     	startActivity(intent);
     }
