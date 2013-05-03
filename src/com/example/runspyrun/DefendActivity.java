@@ -31,8 +31,11 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
 
 import android.support.v4.app.*;
 import android.util.Log;
@@ -59,6 +62,7 @@ public class DefendActivity extends FragmentActivity {
 	private Boolean isWritable = false;
 	private Vector<Marker> markers = new Vector<Marker>();
 	private HashMap<String, LatLng> markerLocations = new HashMap<String, LatLng>(20);
+	private LatLngBounds bounds;
 	private double minDist = 150;
 	private float width = 2000;
 	private float height = 3000;
@@ -78,6 +82,13 @@ public class DefendActivity extends FragmentActivity {
         	positionCenter = new LatLng(extras.getDouble("latitude"), extras.getDouble("longitude"));
         }
         final LatLng fCenter = positionCenter;
+        Double hypot = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
+        //bounds = new LatLngBounds(findLatLng(fCenter, hypot, 45.0), findLatLng(fCenter, hypot, 225.0));
+        Polygon polygon = mMap.addPolygon(new PolygonOptions()
+        		.add(findLatLng(fCenter, hypot, 45.0),
+        			 findLatLng(fCenter, hypot, 135.0),
+        			 findLatLng(fCenter, hypot, 225.0),
+        			 findLatLng(fCenter, hypot, 315.0)));
         Button cButton = (Button)findViewById(R.id.Centre);
         cButton.setOnClickListener(new OnClickListener(){
         
@@ -353,6 +364,25 @@ public class DefendActivity extends FragmentActivity {
             return true;
         }
         return false;
+    }
+    
+    private LatLng findLatLng(LatLng point, Double dist, Double theta)
+    {
+    	if(dist == 0 || point == null)
+    	{
+    		return null;
+    	}
+    	else
+    	{
+    		Double dx = dist * Math.sin(theta / 180.0 * Math.PI);
+    		Double dy = dist * Math.cos(theta / 180.0 * Math.PI);
+    		
+    		Double dLongitude = dx/(111320*Math.cos(point.latitude / 180.0 * Math.PI));
+    		Double dLatitude = dy/110540;
+    		
+    		return new LatLng(point.latitude + dLatitude, point.longitude + dLongitude);
+    		
+    	}
     }
 
 }
