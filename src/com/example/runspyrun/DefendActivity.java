@@ -63,7 +63,7 @@ public class DefendActivity extends FragmentActivity {
 	private Vector<Marker> markers = new Vector<Marker>();
 	private HashMap<String, LatLng> markerLocations = new HashMap<String, LatLng>(20);
 	private LatLngBounds bounds;
-	private double minDist = 150;
+	private double minDist = 10;
 	private float width = 800;
 	private float height = 800;
 	private Polygon polygon;

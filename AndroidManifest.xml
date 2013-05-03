@@ -47,7 +47,8 @@
         <activity
             android:name="com.example.runspyrun.AttackActivity"
             android:label="@string/title_activity_attack"
-            android:parentActivityName="com.example.myfirstapp.MainActivity" >
+            android:parentActivityName="com.example.myfirstapp.MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myfirstapp.MainActivity" />
