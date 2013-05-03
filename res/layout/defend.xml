@@ -79,4 +79,12 @@
         android:layout_marginTop="60dp"
         android:text="Centre" />
 
+    <Button
+        android:id="@+id/Clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="64dp"
+        android:text="Clear" />
+
 </FrameLayout>

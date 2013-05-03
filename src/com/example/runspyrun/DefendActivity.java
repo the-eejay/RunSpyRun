@@ -66,6 +66,7 @@ public class DefendActivity extends FragmentActivity {
 	private double minDist = 150;
 	private float width = 800;
 	private float height = 800;
+	private Polygon polygon;
     @SuppressWarnings("deprecation")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,17 +85,35 @@ public class DefendActivity extends FragmentActivity {
         final LatLng fCenter = positionCenter;
         Double hypot = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
         bounds = new LatLngBounds(findLatLng(fCenter, hypot,225.0), findLatLng(fCenter, hypot, 45.0));
-        Polygon polygon = mMap.addPolygon(new PolygonOptions()
-        		.add(findLatLng(fCenter, hypot, 45.0),
-        			 findLatLng(fCenter, hypot, 135.0),
-        			 findLatLng(fCenter, hypot, 225.0),
-        			 findLatLng(fCenter, hypot, 315.0)));
+        final PolygonOptions pOptions = new PolygonOptions()
+		.add(findLatLng(fCenter, hypot, 45.0),
+   			 findLatLng(fCenter, hypot, 135.0),
+   			 findLatLng(fCenter, hypot, 225.0),
+   			 findLatLng(fCenter, hypot, 315.0));
+        polygon = mMap.addPolygon(pOptions);
         Button cButton = (Button)findViewById(R.id.Centre);
         cButton.setOnClickListener(new OnClickListener(){
         
 			@Override
 			public void onClick(View arg0) {
 				mMap.animateCamera(CameraUpdateFactory.newLatLng(fCenter));
+			}
+        	
+        });
+        
+        Button clearButton = (Button)findViewById(R.id.Clear);
+        clearButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				mMap.clear();
+				markers.clear();
+				markerLocations.clear();
+				inMarker = null;
+				outMarker = null;
+				dragging = "";
+				polygon = mMap.addPolygon(pOptions);
+				
 			}
         	
         });
