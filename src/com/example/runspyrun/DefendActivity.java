@@ -78,9 +78,19 @@ public class DefendActivity extends FragmentActivity {
         	positionCenter = new LatLng(extras.getDouble("latitude"), extras.getDouble("longitude"));
         }
         final LatLng fCenter = positionCenter;
+        Button cButton = (Button)findViewById(R.id.Centre);
+        cButton.setOnClickListener(new OnClickListener(){
         
+			@Override
+			public void onClick(View arg0) {
+				mMap.animateCamera(CameraUpdateFactory.newLatLng(fCenter));
+				Log.e(String.valueOf(mMap.getMaxZoomLevel()), "zoom");
+			}
+        	
+        });
         //Resources res = getResources();
         //Drawable myImage = res.getDrawable(R.drawable.defend_asset);
+        /*
         mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
 
 			@Override
@@ -110,6 +120,7 @@ public class DefendActivity extends FragmentActivity {
 
 			
         });
+        */
         OnClickListener cListener = new View.OnClickListener(){
 
 			@Override
