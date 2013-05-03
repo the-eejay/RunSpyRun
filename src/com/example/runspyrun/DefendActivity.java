@@ -117,39 +117,6 @@ public class DefendActivity extends FragmentActivity {
 			}
         	
         });
-        //Resources res = getResources();
-        //Drawable myImage = res.getDrawable(R.drawable.defend_asset);
-        /*
-        mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
-
-			@Override
-			public void onCameraChange(CameraPosition position) {
-				float[] widthd = new float[0];
-				float[] heightd = new float[0];
-				if(position.target.latitude != fCenter.latitude)
-				{
-					try{
-					Location.distanceBetween(position.target.latitude, fCenter.longitude, fCenter.latitude, fCenter.longitude, heightd);
-					}
-					catch(Exception e){
-						
-					}
-				}
-				else if(position.target.longitude != fCenter.longitude)
-				{
-					try{
-					Location.distanceBetween(fCenter.latitude, position.target.longitude, fCenter.latitude, fCenter.longitude, widthd);
-					}
-					catch(Exception e){
-						
-					}
-				}
-				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fCenter, 15));
-			}
-
-			
-        });
-        */
         OnClickListener cListener = new View.OnClickListener(){
 
 			@Override
