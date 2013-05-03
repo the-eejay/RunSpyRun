@@ -84,7 +84,6 @@ public class DefendActivity extends FragmentActivity {
 			@Override
 			public void onClick(View arg0) {
 				mMap.animateCamera(CameraUpdateFactory.newLatLng(fCenter));
-				Log.e(String.valueOf(mMap.getMaxZoomLevel()), "zoom");
 			}
         	
         });
@@ -291,7 +290,7 @@ public class DefendActivity extends FragmentActivity {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
         	mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-        	mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        	mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         	mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-27.46368,152.99762), 15));
 
         }
