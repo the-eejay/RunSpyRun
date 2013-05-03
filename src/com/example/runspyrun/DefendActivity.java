@@ -60,6 +60,8 @@ public class DefendActivity extends FragmentActivity {
 	private Vector<Marker> markers = new Vector<Marker>();
 	private HashMap<String, LatLng> markerLocations = new HashMap<String, LatLng>(20);
 	private double minDist = 500;
+	private float width = 2000;
+	private float height = 3000;
     @SuppressWarnings("deprecation")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,26 @@ public class DefendActivity extends FragmentActivity {
 
 			@Override
 			public void onCameraChange(CameraPosition position) {
+				float[] widthd = new float[0];
+				float[] heightd = new float[0];
+				if(position.target.latitude != fCenter.latitude)
+				{
+					try{
+					Location.distanceBetween(position.target.latitude, fCenter.longitude, fCenter.latitude, fCenter.longitude, heightd);
+					}
+					catch(Exception e){
+						
+					}
+				}
+				else if(position.target.longitude != fCenter.longitude)
+				{
+					try{
+					Location.distanceBetween(fCenter.latitude, position.target.longitude, fCenter.latitude, fCenter.longitude, widthd);
+					}
+					catch(Exception e){
+						
+					}
+				}
 				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fCenter, 15));
 			}
 
@@ -117,12 +139,16 @@ public class DefendActivity extends FragmentActivity {
 				if(dragging != "")
 				{
 					float[] tempV = new float[1];
+					float[] tempW = new float[1];
+					float[] tempH = new float[1];
 					Boolean lengthCheck = true;
 					for(Marker m : markers){
 						Location.distanceBetween(m.getPosition().latitude, m.getPosition().longitude, point.latitude, point.longitude, tempV);
 						if(tempV[0] < minDist){lengthCheck = false;}
 					}
-					if(lengthCheck)
+					Location.distanceBetween(point.latitude, fCenter.longitude, fCenter.latitude, fCenter.longitude, tempH);
+					Location.distanceBetween(fCenter.latitude, point.longitude, fCenter.latitude, fCenter.longitude, tempW);
+					if(lengthCheck && tempH[0] < height/2 && tempW[0] < width /2)
 					{
 						if(dragging == "mine")
 						{
@@ -186,22 +212,26 @@ public class DefendActivity extends FragmentActivity {
 			@Override
 			public void onMarkerDragEnd(Marker arg0) {
 				float[] tempV = new float[1];
+				float[] tempW = new float[1];
+				float[] tempH = new float[1];
 				Boolean lengthCheck = true;
+				Location.distanceBetween(arg0.getPosition().latitude, fCenter.longitude, fCenter.latitude, fCenter.longitude, tempH);
+				Location.distanceBetween(fCenter.latitude, arg0.getPosition().longitude, fCenter.latitude, fCenter.longitude, tempW);
 				for(Marker m : markers){
 					if(!m.getId().equals(arg0.getId()))
 					{
 					Location.distanceBetween(m.getPosition().latitude, m.getPosition().longitude, arg0.getPosition().latitude, arg0.getPosition().longitude, tempV);
-					if(tempV[0] < minDist){
+					if(tempV[0] < minDist || tempH[0] > height/2 || tempW[0] > width/2){
 						lengthCheck = false;}
-					else
-					{
-						markerLocations.remove(arg0.getId());
-						markerLocations.put(arg0.getId(), arg0.getPosition());
-					}
 					}
 				}
 				if(!lengthCheck){
 					arg0.setPosition(originalPosition);
+				}
+				else
+				{
+					markerLocations.remove(arg0.getId());
+					markerLocations.put(arg0.getId(), arg0.getPosition());
 				}
 				
 			}
