@@ -56,7 +56,7 @@
             android:name="com.example.runspyrun.DefendActivity"
             android:label="@string/title_activity_defend"
             android:parentActivityName="com.example.myfirstapp.MainActivity" 
-            android:orientation="vertical" >
+           android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myfirstapp.MainActivity" />

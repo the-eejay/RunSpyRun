@@ -72,17 +72,17 @@ public class DefendActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.defend);
-        setUpMapIfNeeded();
         HorizontalScrollView hView = (HorizontalScrollView) findViewById(R.id.iconlist);
         final Context context = this;
         isReadable = isExternalStorageReadable();
         isWritable = isExternalStorageWritable();
-        LatLng positionCenter = new LatLng(-27.497598,153.013287);
+        LatLng positionCenter = new LatLng(-27.497307,153.013102);
         Bundle extras = getIntent().getExtras();
         if(extras != null){
         	positionCenter = new LatLng(extras.getDouble("latitude"), extras.getDouble("longitude"));
         }
         final LatLng fCenter = positionCenter;
+        setUpMapIfNeeded(fCenter);
         Double hypot = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
         bounds = new LatLngBounds(findLatLng(fCenter, hypot,225.0), findLatLng(fCenter, hypot, 45.0));
         final PolygonOptions pOptions = new PolygonOptions()
@@ -276,12 +276,12 @@ public class DefendActivity extends FragmentActivity {
     	super.onStop();
     }
     
-    private void setUpMapIfNeeded() {
+    private void setUpMapIfNeeded(LatLng center) {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
         	mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
         	mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        	mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-27.46368,152.99762), 15));
+        	mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15));
 
         }
         else
