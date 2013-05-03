@@ -77,7 +77,7 @@ public class DefendActivity extends FragmentActivity {
         final Context context = this;
         isReadable = isExternalStorageReadable();
         isWritable = isExternalStorageWritable();
-        LatLng positionCenter = new LatLng(-27.46368,152.99762);
+        LatLng positionCenter = new LatLng(-27.497598,153.013287);
         Bundle extras = getIntent().getExtras();
         if(extras != null){
         	positionCenter = new LatLng(extras.getDouble("latitude"), extras.getDouble("longitude"));
