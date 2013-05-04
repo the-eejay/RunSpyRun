@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.location.LocationManager;
+import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.content.ClipData;
@@ -193,7 +194,8 @@ public class DefendActivity extends FragmentActivity {
         
         Button button = (Button) findViewById(R.id.save);
         button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @SuppressLint("NewApi")
+			public void onClick(View v) {
                 if(isReadable && isWritable)
                 {
                 	File dir = new File(context.getExternalFilesDir(null), "courses.txt");
