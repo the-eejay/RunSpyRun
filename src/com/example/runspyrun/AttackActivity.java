@@ -98,7 +98,7 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-		button = "Button2";
+		button = "Button1";
 		
 		if (!ArchitectView.isDeviceSupported(this)) {
 			Toast.makeText(this, "minimum requirements not fulfilled",
