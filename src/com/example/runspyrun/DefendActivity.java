@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import java.io.FileOutputStream;
@@ -37,6 +38,7 @@ import android.support.v4.app.*;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -55,6 +57,7 @@ public class DefendActivity extends FragmentActivity {
 	private Boolean isReadable = false;
 	private Boolean isWritable = false;
 	private Vector<Marker> markers = new Vector<Marker>();
+	private HashMap<String, LatLng> markerLocations = new HashMap<String, LatLng>(20);
 	private double minDist = 500;
     @SuppressWarnings("deprecation")
 	@Override
@@ -66,13 +69,20 @@ public class DefendActivity extends FragmentActivity {
         final Context context = this;
         isReadable = isExternalStorageReadable();
         isWritable = isExternalStorageWritable();
+        LatLng positionCenter = new LatLng(-27.46368,152.99762);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+        	positionCenter = new LatLng(extras.getDouble("latitude"), extras.getDouble("longitude"));
+        }
+        final LatLng fCenter = positionCenter;
+        
         //Resources res = getResources();
         //Drawable myImage = res.getDrawable(R.drawable.defend_asset);
         mMap.setOnCameraChangeListener(new OnCameraChangeListener(){
 
 			@Override
 			public void onCameraChange(CameraPosition position) {
-				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-27.46368,152.99762), 15));
+				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fCenter, 15));
 			}
 
 			
@@ -92,10 +102,12 @@ public class DefendActivity extends FragmentActivity {
         ImageView inView = (ImageView) findViewById(R.id.hackin);
         inView.setTag("hackin");
         inView.setOnClickListener(cListener);
-        
+    
         ImageView outView = (ImageView) findViewById(R.id.hackout);
         outView.setTag("hackout");
         outView.setOnClickListener(cListener);
+        
+        final EditText courseName = (EditText) findViewById(R.id.name);
         //a motion event listener would work better
         mMap.setOnMapClickListener(new OnMapClickListener(){
 
@@ -121,6 +133,7 @@ public class DefendActivity extends FragmentActivity {
 							dragging = "";
 							
 							markers.add(tempMarker);
+							markerLocations.put(tempMarker.getId(), tempMarker.getPosition());
 							
 						}
 						if(dragging == "hackin")
@@ -136,6 +149,7 @@ public class DefendActivity extends FragmentActivity {
 									.icon(BitmapDescriptorFactory.fromResource(R.drawable.hackin_small)));
 							dragging = "";
 							markers.add(inMarker);
+							markerLocations.put(inMarker.getId(), inMarker.getPosition());
 						}
 						if(dragging == "hackout")
 						{
@@ -150,6 +164,7 @@ public class DefendActivity extends FragmentActivity {
 									.icon(BitmapDescriptorFactory.fromResource(R.drawable.hackout_small)));
 							dragging = "";
 							markers.add(outMarker);
+							markerLocations.put(outMarker.getId(), outMarker.getPosition());
 						}
 					}
 				}
@@ -172,10 +187,16 @@ public class DefendActivity extends FragmentActivity {
 				float[] tempV = new float[1];
 				Boolean lengthCheck = true;
 				for(Marker m : markers){
-					if(m != arg0)
+					if(!m.getId().equals(arg0.getId()))
 					{
 					Location.distanceBetween(m.getPosition().latitude, m.getPosition().longitude, arg0.getPosition().latitude, arg0.getPosition().longitude, tempV);
-					if(tempV[0] < minDist){lengthCheck = false;}
+					if(tempV[0] < minDist){
+						lengthCheck = false;}
+					else
+					{
+						markerLocations.remove(arg0.getId());
+						markerLocations.put(arg0.getId(), arg0.getPosition());
+					}
 					}
 				}
 				if(!lengthCheck){
@@ -186,7 +207,7 @@ public class DefendActivity extends FragmentActivity {
 
 			@Override
 			public void onMarkerDragStart(Marker arg0) {
-				originalPosition = arg0.getPosition();
+				originalPosition = markerLocations.get(arg0.getId());
 				
 			}
         	
@@ -199,7 +220,7 @@ public class DefendActivity extends FragmentActivity {
                 if(isReadable && isWritable)
                 {
                 	File dir = new File(context.getExternalFilesDir(null), "courses.txt");
-                	courseToFile(dir, "course1");
+                	courseToFile(dir, courseName.getText().toString());
                 }
             }
         });
