@@ -273,7 +273,7 @@ public class DefendActivity extends FragmentActivity {
     	String lineSep = System.getProperty("line.separator");
     	try {
     		OutputStream outputStream = new FileOutputStream(fname, true);
-    		String header = courseName + lineSep;
+    		String header = "Name: " + courseName + lineSep;
     		outputStream.write(header.getBytes());
 			for(Marker m : markers){
 				String output = (String) m.getTitle() + "," + String.valueOf(m.getPosition().latitude) + "," + String.valueOf(m.getPosition().longitude) + lineSep;
