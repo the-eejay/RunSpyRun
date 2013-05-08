@@ -9,7 +9,7 @@
     tools:context=".MainActivity" >
 
     <Button android:id="@+id/defend"
-    	android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/defend" 
         android:onClick="makeCourse" />
@@ -23,5 +23,34 @@
         android:layout_toRightOf="@+id/defend"
         android:onClick="playCourse"
         android:text="@string/attack" />
+
+    <EditText
+        android:id="@+id/longedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/defend"
+        android:layout_below="@+id/defend"
+        android:layout_marginTop="58dp"
+        android:ems="10"
+        android:hint="Longitude"
+        android:inputType="text"
+        android:maxWidth="300dp"
+        android:textColor="#000000" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/latedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/longedit"
+        android:layout_below="@+id/defend"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="Latitude"
+        android:inputType="text"
+        android:maxWidth="300dp"
+        android:textColor="#000000" />
 
 </RelativeLayout>
