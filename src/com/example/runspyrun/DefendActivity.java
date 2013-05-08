@@ -43,6 +43,7 @@ import android.widget.Gallery;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.*;
 
@@ -279,10 +280,12 @@ public class DefendActivity extends FragmentActivity {
 			}
 			String output = "END\n";
 			outputStream.write(output.getBytes());
+			Toast.makeText(this, "Course Saved", Toast.LENGTH_LONG);
 			outputStream.close();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			Toast.makeText(this, "Course Not Saved", Toast.LENGTH_LONG);
 			e.printStackTrace();
 			return false;
 		}

@@ -29,6 +29,8 @@ public class CourseListActivity extends Activity {
 		
 		try {
 			CourseReader courseReader = new CourseReader(this);
+			Toast.makeText(this, "File Found", Toast.LENGTH_LONG).show();
+			
 		} catch (IOException e) {
 			Toast.makeText(this, "File Not Found", Toast.LENGTH_LONG).show();
 			this.finish();
