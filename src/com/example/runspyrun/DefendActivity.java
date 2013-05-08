@@ -270,14 +270,15 @@ public class DefendActivity extends FragmentActivity {
     private Boolean courseToFile(File fname, String courseName){
     	try {
     		OutputStream outputStream = new FileOutputStream(fname, true);
-    		String header = "[" + courseName + ":";
+    		String header = courseName + "\n";
     		outputStream.write(header.getBytes());
 			for(Marker m : markers){
-				String output = (String) m.getTitle() + "," + String.valueOf(m.getPosition().latitude) + ',' + String.valueOf(m.getPosition().longitude) + '\n';
+				String output = (String) m.getTitle() + "," + String.valueOf(m.getPosition().latitude) + "," + String.valueOf(m.getPosition().longitude) + "\n";
 				outputStream.write(output.getBytes());
 				Log.e("file", output);
 			}
-			outputStream.write("]".getBytes());
+			String output = "END\n";
+			outputStream.write(output.getBytes());
 			outputStream.close();
 			
 		} catch (IOException e) {

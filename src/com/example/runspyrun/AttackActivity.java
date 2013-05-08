@@ -60,7 +60,7 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 	private Location hackInLoc;
 	private Location hackOutLoc;
 	private List<Location> landMineLocs = new ArrayList<Location>();
-	private String button;
+	private String course;
 	private TextView myText;
 	private final double[] courseOne = {
 			-27.562396,
@@ -98,7 +98,9 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
-		button = "Button1";
+		Bundle extras = getIntent().getExtras();
+		
+		course = extras.getString("COURSE");
 		
 		if (!ArchitectView.isDeviceSupported(this)) {
 			Toast.makeText(this, "minimum requirements not fulfilled",
@@ -142,7 +144,7 @@ public class AttackActivity extends Activity implements LocationListener, Archit
     	this.architectView.registerUrlListener(this);
     	
     	try {
-			loadSampleWorld(button);
+			loadSampleWorld(course);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

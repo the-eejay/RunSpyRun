@@ -61,6 +61,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myfirstapp.MainActivity" />
         </activity>
+        
+        <activity
+            android:name="com.example.runspyrun.CourseListActivity"
+            android:label="@string/title_activity_attack"
+            android:parentActivityName="com.example.myfirstapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.MainActivity" />
+        </activity>
+        
         <meta-data
 		    android:name="com.google.android.maps.v2.API_KEY"
 		    android:value="AIzaSyDdCbJc89ALTqKEU7R4tyjQkVuBmEidM2g"/>

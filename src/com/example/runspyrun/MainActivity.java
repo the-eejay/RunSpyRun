@@ -1,6 +1,7 @@
 package com.example.runspyrun;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -20,15 +21,18 @@ public class MainActivity extends Activity {
         latEdit = (EditText)findViewById(R.id.latedit);
     }
     
-    public void makeCourse(View view) {
+    @SuppressLint("NewApi")
+	public void makeCourse(View view) {
     	Intent intent = new Intent(this, DefendActivity.class);
-    	intent.putExtra("longitude", Double.parseDouble(longEdit.getText().toString()));
-    	intent.putExtra("latitude", Double.parseDouble(latEdit.getText().toString()));
+    	if (!longEdit.getText().toString().isEmpty()) {
+	    	intent.putExtra("longitude", Double.parseDouble(longEdit.getText().toString()));
+	    	intent.putExtra("latitude", Double.parseDouble(latEdit.getText().toString()));
+    	}
     	startActivity(intent);
     }
     
     public void playCourse(View view) {
-    	Intent intent = new Intent(this, AttackActivity.class);
+    	Intent intent = new Intent(this, CourseListActivity.class);
     	startActivity(intent);
     }
 
