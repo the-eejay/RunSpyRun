@@ -218,10 +218,11 @@ public class DefendActivity extends FragmentActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
 			public void onClick(View v) {
-                if(isReadable && isWritable)
-                {
+                if(isReadable && isWritable) {
                 	File dir = new File(context.getExternalFilesDir(null), "courses.txt");
                 	courseToFile(dir, courseName.getText().toString());
+                } else {
+                	Toast.makeText(getApplicationContext(), "Could not write to file", Toast.LENGTH_LONG).show();
                 }
             }
         });

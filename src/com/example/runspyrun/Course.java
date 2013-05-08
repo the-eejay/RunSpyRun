@@ -50,4 +50,8 @@ public class Course {
 		return landMines;
 	}
 	
+	public void addMine(PoiBean bean) {
+		landMines.add(bean);
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 public class CourseListActivity extends Activity {
 	
+	private CourseReader courseReader;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,43 +31,41 @@ public class CourseListActivity extends Activity {
 		final ListView listView = (ListView) findViewById(R.id.listview);
 		
 		try {
-			CourseReader courseReader = new CourseReader(this);
-			Toast.makeText(this, "File Found", Toast.LENGTH_LONG).show();
+			courseReader = new CourseReader(this);
+			final ArrayList<Course> courseList = courseReader.getCourses();
+			Iterator<Course> iter = courseList.iterator();
+			List<String> names = new ArrayList<String>();
+			for (int i = 0; i < courseList.size(); ++i) {
+				names.add(iter.next().getName());
+			}
+			
+			final StableArrayAdapter adapter = new StableArrayAdapter(
+				this, android.R.layout.simple_list_item_1, names);
+			
+			
+			listView.setAdapter(adapter);
+			
+			listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				
+				@SuppressLint("NewApi")
+				@Override
+				public void onItemClick(AdapterView<?> parent, final View view,
+						int position, long id) {
+					final String item = (String) parent.getItemAtPosition(position);
+					
+					Intent intent = new Intent(getApplicationContext(), AttackActivity.class);
+					intent.putExtra("COURSE", item);
+					startActivity(intent);
+				}
+			});
 			
 		} catch (IOException e) {
-			Toast.makeText(this, "File Not Found", Toast.LENGTH_LONG).show();
-			this.finish();
+			Toast.makeText(this, "IO Exception", Toast.LENGTH_LONG).show();
+			
 			e.printStackTrace();
+			this.finish();
 			return;
 		}
-		
-		
-		
-		String[] values = new String[]{"Course 1", "Course 2"};
-	
-		final ArrayList<String> list = new ArrayList<String>();
-		for (int i=0; i < values.length; ++i) {
-			list.add(values[i]);
-		}
-		
-		final StableArrayAdapter adapter = new StableArrayAdapter(
-				this, android.R.layout.simple_list_item_1, list);
-		
-		listView.setAdapter(adapter);
-		
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			
-			@SuppressLint("NewApi")
-			@Override
-			public void onItemClick(AdapterView<?> parent, final View view,
-					int position, long id) {
-				final String item = (String) parent.getItemAtPosition(position);
-				
-				Intent intent = new Intent(getApplicationContext(), AttackActivity.class);
-				intent.putExtra("COURSE", item);
-				startActivity(intent);
-			}
-		});
 	}
 	
 	private class StableArrayAdapter extends ArrayAdapter<String> {
