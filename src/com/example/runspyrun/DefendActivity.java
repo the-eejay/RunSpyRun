@@ -269,23 +269,24 @@ public class DefendActivity extends FragmentActivity {
     }
     
     private Boolean courseToFile(File fname, String courseName){
+    	String lineSep = System.getProperty("line.separator");
     	try {
     		OutputStream outputStream = new FileOutputStream(fname, true);
-    		String header = courseName + "\n";
+    		String header = courseName + lineSep;
     		outputStream.write(header.getBytes());
 			for(Marker m : markers){
-				String output = (String) m.getTitle() + "," + String.valueOf(m.getPosition().latitude) + "," + String.valueOf(m.getPosition().longitude) + "\n";
+				String output = (String) m.getTitle() + "," + String.valueOf(m.getPosition().latitude) + "," + String.valueOf(m.getPosition().longitude) + lineSep;
 				outputStream.write(output.getBytes());
 				Log.e("file", output);
 			}
-			String output = "END\n";
+			String output = "END" + lineSep;
 			outputStream.write(output.getBytes());
-			Toast.makeText(this, "Course Saved", Toast.LENGTH_LONG);
+			Toast.makeText(this, "Course Saved", Toast.LENGTH_LONG).show();
 			outputStream.close();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			Toast.makeText(this, "Course Not Saved", Toast.LENGTH_LONG);
+			Toast.makeText(this, "Course Not Saved", Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 			return false;
 		}
