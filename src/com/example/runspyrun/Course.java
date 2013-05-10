@@ -6,10 +6,10 @@ import java.util.List;
 public class Course {
 	private PoiBean hackIn;
 	private PoiBean hackOut;
-	private List<PoiBean> landMines = new ArrayList<PoiBean>();
+	private ArrayList<PoiBean> landMines = new ArrayList<PoiBean>();
 	private String name;
 	
-	public Course(String name, PoiBean hackIn, PoiBean hackOut, List<PoiBean> landMines) {
+	public Course(String name, PoiBean hackIn, PoiBean hackOut, ArrayList<PoiBean> landMines) {
 		this.name = name;
 		this.hackIn = hackIn;
 		this.hackOut = hackOut;
@@ -46,7 +46,7 @@ public class Course {
 		this.hackOut = hackOut;
 	}
 	
-	public List<PoiBean> getLandMines() {
+	public ArrayList<PoiBean> getLandMines() {
 		return landMines;
 	}
 	

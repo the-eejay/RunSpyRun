@@ -3,6 +3,8 @@ package com.example.runspyrun;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.location.Location;
+
 
 /**
  * PoiBean class that serves as a container for poi information
@@ -96,6 +98,14 @@ public class PoiBean {
 		object.put("Point", this.point.toJSONString());
 		
 		return object;
+	}
+	
+	public Location makeLoc() {
+		Location loc = new Location("");
+		loc.setAltitude(this.getAltitude());
+		loc.setLatitude(this.getLatitude());
+		loc.setLongitude(this.getLongitude());
+		return new Location(loc);
 	}
 
 }

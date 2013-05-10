@@ -60,8 +60,10 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 	private Location hackInLoc;
 	private Location hackOutLoc;
 	private List<Location> landMineLocs = new ArrayList<Location>();
-	private String course;
 	private TextView myText;
+	private String courseName;
+	private Course course;
+	private CourseReader cr;
 	private final double[] courseOne = {
 			-27.562396,
 			153.04050, // Hack In Point
@@ -100,7 +102,25 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 		
 		Bundle extras = getIntent().getExtras();
 		
-		course = extras.getString("COURSE");
+		courseName = extras.getString("COURSE");
+		
+		try {
+			cr = new CourseReader(this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ArrayList<Course> courseList = cr.getCourses();
+		
+		Iterator<Course> it = courseList.iterator();
+		
+		while (it.hasNext()) {
+			course = it.next();
+			if (course.getName().equals(courseName)) {
+				break;
+			}
+		}
 		
 		if (!ArchitectView.isDeviceSupported(this)) {
 			Toast.makeText(this, "minimum requirements not fulfilled",
@@ -144,7 +164,7 @@ public class AttackActivity extends Activity implements LocationListener, Archit
     	this.architectView.registerUrlListener(this);
     	
     	try {
-			loadSampleWorld(course);
+			loadSampleWorld();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -202,94 +222,35 @@ public class AttackActivity extends Activity implements LocationListener, Archit
     };
 	
 	
-	private void loadSampleWorld(String button) throws IOException {
+	private void loadSampleWorld() throws IOException {
 		this.architectView.load("tutorial1.html");
 		
-		double[] course;
-		
 		JSONArray array = new JSONArray();
-		List<PoiBean> poiBeanList = new ArrayList<PoiBean>();
 		
-		if (button.equals("Button1")) {
-			course = courseOne;
-		} else if (button.equals("Button2")) {
-			course = courseTwo;
-		} else { // No more courses yet.
-			course = courseTwo;
-		}
+		PoiBean hackIn = course.getHackInPoint();
+		PoiBean hackOut = course.getHackOutPoint();
+		ArrayList<PoiBean> mines = course.getLandMines();
 		
 		try {
-			hackInBean = new PoiBean(
-					"1", 
-					"Hack In Point", 
-					"This is a hack in point",
-					1,
-					course[0],
-					course[1],
-					loc.getAltitude());
+			array.put(hackIn.toJSONObject());
+			array.put(hackOut.toJSONObject());
 			
-			array.put(hackInBean.toJSONObject());
-			poiBeanList.add(hackInBean);
-			
-			hackOutBean = new PoiBean(
-					"2",
-					"Hack Out Point",
-					"This is a hack out point",
-					2,
-					course[2],
-					course[3],
-					loc.getAltitude());
-			
-			array.put(hackOutBean.toJSONObject());
-			poiBeanList.add(hackOutBean);
-			
-			for (int i=4; i < course.length; i = i+2) {
-				PoiBean landMineBean = new PoiBean(
-						"3",
-						"Landmine! Watch out!",
-						"This is a landmine.  If you step on it you will die!",
-						3,
-						course[i],
-						course[i+1],
-						loc.getAltitude());
-				
-				array.put(landMineBean.toJSONObject());
-				poiBeanList.add(landMineBean);
-				landMineBeans.add(landMineBean);
+			for (int i = 0; i < mines.size(); ++i) {
+				array.put(mines.get(i).toJSONObject());
+				landMineLocs.add(mines.get(i).makeLoc());
 			}
 			
-			this.architectView.callJavascript("newData(" + array.toString() + ");");
 		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		hackInLoc = new Location("");
-		hackInLoc.setLatitude(hackInBean.getLatitude());
-		hackInLoc.setLongitude(hackInBean.getLongitude());
-		hackInLoc.setAltitude(hackInBean.getAltitude());
+		hackInLoc = new Location(hackIn.makeLoc());
 		
-		hackOutLoc = new Location("");
-		hackOutLoc.setLatitude(hackOutBean.getLatitude());
-		hackOutLoc.setLongitude(hackOutBean.getLongitude());
-		hackOutLoc.setAltitude(hackOutBean.getAltitude());
+		//hackInLoc.set(hackIn.makeLoc());
+		hackOutLoc = new Location(hackOut.makeLoc());
 		
-		Iterator<PoiBean> it = landMineBeans.iterator();
-		
-		while (it.hasNext()) {
-			PoiBean landMineBean = it.next();
-			Location landMineLoc = new Location("");
-			landMineLoc.setLatitude(landMineBean.getLatitude());
-			landMineLoc.setLongitude(landMineBean.getLongitude());
-			landMineLoc.setAltitude(landMineBean.getAltitude());
-			landMineLocs.add(landMineLoc);
-		}
-		
-		Context context = getApplicationContext();
-		CharSequence text = "Lat: " + loc.getLatitude() + "\n Long: " + loc.getLongitude();
-		int duration = Toast.LENGTH_SHORT;
-
-		Toast toast = Toast.makeText(context, text, duration);
-		toast.show();
+		this.architectView.callJavascript("newData(" + array.toString() + ");");
 
 	}
 

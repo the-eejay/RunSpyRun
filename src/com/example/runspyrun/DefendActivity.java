@@ -59,7 +59,7 @@ public class DefendActivity extends FragmentActivity {
 	private Boolean isWritable = false;
 	private Vector<Marker> markers = new Vector<Marker>();
 	private HashMap<String, LatLng> markerLocations = new HashMap<String, LatLng>(20);
-	private double minDist = 500;
+	private double minDist = 150;
 	private float width = 2000;
 	private float height = 3000;
     @SuppressWarnings("deprecation")
