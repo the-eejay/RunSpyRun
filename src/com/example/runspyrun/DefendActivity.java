@@ -97,7 +97,14 @@ public class DefendActivity extends FragmentActivity {
         
 			@Override
 			public void onClick(View arg0) {
-				mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fCenter, 15));
+				//mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fCenter, 15));
+				CameraPosition cameraPosition = new CameraPosition.Builder()
+													.target(fCenter)
+													.zoom(15)
+													.bearing(0)
+													.tilt(0)
+													.build();
+				mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 			}
         	
         });
