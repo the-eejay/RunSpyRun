@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentManager;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View.DragShadowBuilder;
 import android.view.View.OnClickListener;
@@ -122,18 +123,19 @@ public class DefendActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				dragging = (String) v.getTag();
+				v.setBackgroundColor(Color.WHITE);
 			}
         	
         };
-        ImageView imageView = (ImageView) findViewById(R.id.mine);
+        final ImageView imageView = (ImageView) findViewById(R.id.mine);
         imageView.setTag("mine");
         imageView.setOnClickListener(cListener);
         
-        ImageView inView = (ImageView) findViewById(R.id.hackin);
+        final ImageView inView = (ImageView) findViewById(R.id.hackin);
         inView.setTag("hackin");
         inView.setOnClickListener(cListener);
     
-        ImageView outView = (ImageView) findViewById(R.id.hackout);
+        final ImageView outView = (ImageView) findViewById(R.id.hackout);
         outView.setTag("hackout");
         outView.setOnClickListener(cListener);
         
@@ -162,7 +164,7 @@ public class DefendActivity extends FragmentActivity {
 									.draggable(true)
 									.icon(BitmapDescriptorFactory.fromResource(R.drawable.mine_small)));
 							dragging = "";
-							
+							imageView.setBackgroundColor(Color.BLACK);
 							markers.add(tempMarker);
 							markerLocations.put(tempMarker.getId(), tempMarker.getPosition());
 							
@@ -179,6 +181,7 @@ public class DefendActivity extends FragmentActivity {
 									.draggable(true)
 									.icon(BitmapDescriptorFactory.fromResource(R.drawable.hackin_small)));
 							dragging = "";
+							inView.setBackgroundColor(Color.BLACK);
 							markers.add(inMarker);
 							markerLocations.put(inMarker.getId(), inMarker.getPosition());
 						}
@@ -194,6 +197,7 @@ public class DefendActivity extends FragmentActivity {
 									.draggable(true)
 									.icon(BitmapDescriptorFactory.fromResource(R.drawable.hackout_small)));
 							dragging = "";
+							outView.setBackgroundColor(Color.BLACK);
 							markers.add(outMarker);
 							markerLocations.put(outMarker.getId(), outMarker.getPosition());
 						}

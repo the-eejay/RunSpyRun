@@ -40,12 +40,13 @@
 	            android:layout_height="match_parent"
 	            android:scaleType="fitCenter"
 	            android:src="@drawable/hackin_small" />
+
 	          <ImageView
-	            android:id="@+id/hackout"
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:scaleType="fitCenter"
-	            android:src="@drawable/hackout_small" />
+	              android:id="@+id/hackout"
+	              android:layout_width="wrap_content"
+	              android:layout_height="match_parent"
+	              android:scaleType="fitCenter"
+	              android:src="@drawable/hackout_small" />
 
 	          <EditText
 	              android:id="@+id/name"
