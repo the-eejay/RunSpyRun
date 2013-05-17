@@ -118,26 +118,31 @@ public class DefendActivity extends FragmentActivity {
 			}
         	
         });
+        
+        final ImageView imageView = (ImageView) findViewById(R.id.mine);
+        imageView.setTag("mine");
+        
+        final ImageView inView = (ImageView) findViewById(R.id.hackin);
+        inView.setTag("hackin");
+    
+        final ImageView outView = (ImageView) findViewById(R.id.hackout);
+        outView.setTag("hackout");
+        
         OnClickListener cListener = new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				dragging = (String) v.getTag();
+				imageView.setBackgroundColor(Color.BLACK);
+				inView.setBackgroundColor(Color.BLACK);
+				outView.setBackgroundColor(Color.BLACK);
 				v.setBackgroundColor(Color.WHITE);
 			}
         	
         };
-        final ImageView imageView = (ImageView) findViewById(R.id.mine);
-        imageView.setTag("mine");
-        imageView.setOnClickListener(cListener);
-        
-        final ImageView inView = (ImageView) findViewById(R.id.hackin);
-        inView.setTag("hackin");
-        inView.setOnClickListener(cListener);
-    
-        final ImageView outView = (ImageView) findViewById(R.id.hackout);
-        outView.setTag("hackout");
         outView.setOnClickListener(cListener);
+        inView.setOnClickListener(cListener);
+        imageView.setOnClickListener(cListener);
         
         final EditText courseName = (EditText) findViewById(R.id.name);
         //a motion event listener would work better
@@ -163,8 +168,6 @@ public class DefendActivity extends FragmentActivity {
 									.title("mine")
 									.draggable(true)
 									.icon(BitmapDescriptorFactory.fromResource(R.drawable.mine_small)));
-							dragging = "";
-							imageView.setBackgroundColor(Color.BLACK);
 							markers.add(tempMarker);
 							markerLocations.put(tempMarker.getId(), tempMarker.getPosition());
 							
@@ -180,8 +183,6 @@ public class DefendActivity extends FragmentActivity {
 									.title("hackin")
 									.draggable(true)
 									.icon(BitmapDescriptorFactory.fromResource(R.drawable.hackin_small)));
-							dragging = "";
-							inView.setBackgroundColor(Color.BLACK);
 							markers.add(inMarker);
 							markerLocations.put(inMarker.getId(), inMarker.getPosition());
 						}
@@ -196,8 +197,6 @@ public class DefendActivity extends FragmentActivity {
 									.title("hackout")
 									.draggable(true)
 									.icon(BitmapDescriptorFactory.fromResource(R.drawable.hackout_small)));
-							dragging = "";
-							outView.setBackgroundColor(Color.BLACK);
 							markers.add(outMarker);
 							markerLocations.put(outMarker.getId(), outMarker.getPosition());
 						}
