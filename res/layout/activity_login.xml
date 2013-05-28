@@ -1,0 +1,149 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background"
+    android:gravity="top"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Login"
+    tools:ignore="ContentDescription,HardcodedText" >
+
+    <ImageView
+        android:id="@+id/imageV_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="300dp"
+        android:maxWidth="230dp"
+        android:src="@drawable/logo"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageV_Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageV_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="300dp"
+        android:maxWidth="235dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_box" />
+
+    <ImageView
+        android:id="@+id/iV_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageV_Login"
+        android:layout_alignRight="@+id/imageV_Login"
+        android:layout_marginBottom="95dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="300dp"
+        android:maxWidth="180dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_text" />
+
+    <ImageView
+        android:id="@+id/iV_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/iV_password"
+        android:layout_alignLeft="@+id/iV_password"
+        android:layout_marginBottom="28dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="300dp"
+        android:maxWidth="180dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_text" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:layout_above="@+id/iV_username"
+        android:layout_alignLeft="@+id/iV_username"
+        android:text="IDENTIFICATION" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:layout_above="@+id/iV_password"
+        android:layout_alignLeft="@+id/iV_password"
+        android:text="PASSWORD" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iB_login"
+        android:layout_below="@+id/iB_login"
+        android:paddingLeft="10dp"
+        android:textSize="14sp"
+        android:text="New Recruit?" />
+
+    <TextView
+        android:id="@+id/tVregister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView01"
+        android:layout_below="@+id/TextView01"
+        android:paddingLeft="10dp"
+        android:textSize="14sp"
+        android:text="Register" />
+
+    <ImageButton
+        android:id="@+id/iB_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iV_password"
+        android:layout_alignTop="@+id/iV_password"
+        android:layout_marginTop="29dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="200dp"
+        android:maxWidth="100dp"
+        android:paddingLeft="-5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_button" />
+
+    <EditText
+        android:id="@+id/eTusername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iV_username"
+        android:layout_alignLeft="@+id/iV_username"
+        android:layout_alignRight="@+id/iV_username"
+        android:layout_alignTop="@+id/iV_username"
+        android:ems="10"
+        android:inputType="text"
+        android:singleLine="true"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/eTpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iV_password"
+        android:layout_alignLeft="@+id/iV_password"
+        android:layout_alignRight="@+id/iV_password"
+        android:layout_alignTop="@+id/iV_password"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:visibility="invisible" />
+
+</RelativeLayout>

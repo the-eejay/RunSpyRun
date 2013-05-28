@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background" >
+
+    <ImageView
+        android:id="@+id/iV_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="108dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="500dp"
+        android:maxWidth="280dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/obstacle_box" />
+
+    <ImageView
+        android:id="@+id/iV_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="300dp"
+        android:maxWidth="220dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/missiont" />
+
+    <ImageView
+        android:id="@+id/iV_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iV_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="300dp"
+        android:maxWidth="250dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mission_text" />
+
+    <ImageButton
+        android:id="@+id/iB_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iV_user"
+        android:layout_alignLeft="@+id/iV_email"
+        android:layout_marginBottom="14dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="100dp"
+        android:maxWidth="90dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/accept" />
+
+    <ImageButton
+        android:id="@+id/iB_quickgrey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/iV_email"
+        android:layout_alignTop="@+id/iB_send"
+        android:layout_marginRight="17dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="100dp"
+        android:maxWidth="90dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/reject" />
+
+</RelativeLayout>

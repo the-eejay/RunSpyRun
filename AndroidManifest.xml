@@ -36,7 +36,7 @@
         
         <uses-library android:name="com.google.android.maps" />
         <activity
-            android:name="com.example.runspyrun.MainActivity"
+            android:name="com.example.runspyrun.Login"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,31 +47,40 @@
         <activity
             android:name="com.example.runspyrun.AttackActivity"
             android:label="@string/title_activity_attack"
-            android:parentActivityName="com.example.myfirstapp.MainActivity"
+            android:parentActivityName="com.example.myfirstapp.AttackDefend"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.MainActivity" />
+                android:value="com.example.myfirstapp.AttackDefend" />
         </activity>
         <activity
             android:name="com.example.runspyrun.DefendActivity"
             android:label="@string/title_activity_defend"
-            android:parentActivityName="com.example.myfirstapp.MainActivity" 
+            android:parentActivityName="com.example.myfirstapp.AttackDefend" 
            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.MainActivity" />
+                android:value="com.example.myfirstapp.AttackDefend" />
         </activity>
         
         <activity
             android:name="com.example.runspyrun.CourseListActivity"
             android:label="@string/title_activity_attack"
-            android:parentActivityName="com.example.myfirstapp.MainActivity" >
+            android:parentActivityName="com.example.myfirstapp.AttackDefend" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.MainActivity" />
+                android:value="com.example.myfirstapp.AttackDefend" />
         </activity>
-        
+        <activity android:name="Credit" android:screenOrientation="portrait"></activity>
+        <activity android:name="Findgame"></activity>
+        <activity android:name="Gameplay" android:screenOrientation="portrait"></activity>
+        <activity android:name="Menu" android:screenOrientation="portrait"></activity>
+        <activity android:name="Obstacles"></activity>
+        <activity android:name="Profile" android:screenOrientation="portrait"></activity>
+        <activity android:name="Ranking" android:screenOrientation="portrait"></activity>
+        <activity android:name="Registration" android:screenOrientation="portrait"></activity>
+        <activity android:name="Setting" android:screenOrientation="portrait"></activity>
+        <activity android:name="AttackDefend" android:screenOrientation="portrait"></activity>
         <meta-data
 		    android:name="com.google.android.maps.v2.API_KEY"
 		    android:value="AIzaSyDdCbJc89ALTqKEU7R4tyjQkVuBmEidM2g"/>

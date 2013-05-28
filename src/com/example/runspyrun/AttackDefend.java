@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-public class MainActivity extends Activity {
+public class AttackDefend extends Activity {
     
 	private EditText addressEdit;
 	

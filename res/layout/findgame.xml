@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/iV_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="450dp"
+        android:maxWidth="318dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/findgamebox" />
+
+    <ImageButton
+        android:id="@+id/iB_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iB_two"
+        android:layout_below="@+id/iB_two"
+        android:layout_marginLeft="2dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="50dp"
+        android:maxWidth="70dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/view1" />
+
+    <ImageButton
+        android:id="@+id/iB_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/iV_user"
+        android:layout_alignTop="@+id/iV_user"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="9dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="50dp"
+        android:maxWidth="70dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/view2" />
+
+    <ImageView
+        android:id="@+id/ImageView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iV_user"
+        android:layout_alignTop="@+id/iB_two"
+        android:layout_marginLeft="20dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="50dp"
+        android:maxWidth="70dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/hackinbar" />
+
+    <ImageView
+        android:id="@+id/ImageView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ImageView01"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/ImageView01"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="50dp"
+        android:maxWidth="70dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/hackoutbar" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iB_two"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/ImageView02"
+        android:text="Detection:" />
+
+</RelativeLayout>

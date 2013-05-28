@@ -17,7 +17,7 @@ import org.json.JSONException;
 import com.wikitude.architect.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView;
 
-import com.example.runspyrun.MainActivity;
+import com.example.runspyrun.AttackDefend;
 import com.example.runspyrun.PoiDetailActivity;
 import com.example.runspyrun.PoiBean;
 import com.example.runspyrun.R;

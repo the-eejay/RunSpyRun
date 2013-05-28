@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/profileba"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/iV_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="55dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="200dp"
+        android:maxWidth="150dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/profilet" />
+
+    <ImageButton
+        android:id="@+id/iB_quickgrey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iV_user"
+        android:layout_below="@+id/iV_user"
+        android:layout_marginTop="14dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="200dp"
+        android:maxWidth="100dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/customize" />
+
+    <ImageButton
+        android:id="@+id/iB_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iB_quickgrey"
+        android:layout_below="@+id/iB_quickgrey"
+        android:layout_marginTop="14dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="200dp"
+        android:maxWidth="140dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/update" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iB_send"
+        android:layout_below="@+id/iB_send"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="200dp"
+        android:maxWidth="120dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/erase" />
+
+    <ImageView
+        android:id="@+id/iV_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/iV_user"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="200dp"
+        android:maxWidth="150dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/account2" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton2"
+        android:layout_alignParentBottom="true"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="250dp"
+        android:maxWidth="200dp"
+        android:paddingBottom="40dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logtext" />
+
+    <ImageView
+        android:id="@+id/iV_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/iV_pass"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="500dp"
+        android:maxWidth="300dp"
+        android:paddingBottom="25dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/log_box" />
+
+</RelativeLayout>
