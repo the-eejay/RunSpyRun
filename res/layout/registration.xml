@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+     android:orientation="vertical">
+<RelativeLayout
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background2"
     android:orientation="vertical" >
 	<ImageView
@@ -144,7 +148,7 @@
         android:ems="10"
         android:inputType="text"
         android:singleLine="true"
-        android:visibility="invisible" />
+        android:visibility="visible" />
     
     <EditText
         android:id="@+id/eTpass"
@@ -155,9 +159,9 @@
         android:layout_alignRight="@+id/iV_pass"
         android:layout_alignTop="@+id/iV_pass"
         android:ems="10"
-        android:inputType="text|textVisiblePassword"
+        android:inputType="text|textPassword"
         android:singleLine="true"
-        android:visibility="invisible" />
+        android:visibility="visible" />
     
     <EditText
         android:id="@+id/eTconfirm"
@@ -168,9 +172,9 @@
         android:layout_alignRight="@+id/iV_confirm"
         android:layout_alignTop="@+id/iV_confirm"
         android:ems="10"
-        android:inputType="text|textVisiblePassword"
+        android:inputType="text|textPassword"
         android:singleLine="true"
-        android:visibility="invisible" />
+        android:visibility="visible" />
     
    <EditText
        android:id="@+id/eTemail"
@@ -183,6 +187,7 @@
        android:ems="10"
        android:inputType="text|textEmailAddress"
        android:singleLine="true"
-       android:visibility="invisible" />
+       android:visibility="visible" />
 
 </RelativeLayout>
+</ScrollView>

@@ -131,7 +131,7 @@
         android:ems="10"
         android:inputType="text"
         android:singleLine="true"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/eTpassword"
@@ -144,6 +144,6 @@
         android:ems="10"
         android:inputType="textPassword"
         android:singleLine="true"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
 </RelativeLayout>
