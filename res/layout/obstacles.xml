@@ -5,7 +5,7 @@
     android:background="@drawable/background" >
 
     <ImageView
-        android:id="@+id/iV_pass"
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -17,20 +17,5 @@
         android:maxWidth="280dp"
         android:scaleType="fitCenter"
         android:src="@drawable/obstacle_box" />
-    
-      <ImageView
-          android:id="@+id/iV_user"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_alignParentTop="true"
-          android:layout_marginLeft="22dp"
-          android:layout_marginTop="55dp"
-          android:adjustViewBounds="true"
-          android:background="@android:color/transparent"
-          android:maxHeight="200dp"
-          android:maxWidth="150dp"
-          android:scaleType="fitCenter"
-          android:src="@drawable/obstaclet" />
 
 </RelativeLayout>
