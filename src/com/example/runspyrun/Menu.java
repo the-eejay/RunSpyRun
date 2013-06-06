@@ -1,7 +1,6 @@
 package com.example.runspyrun;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -59,9 +58,7 @@ public class Menu extends Activity {
 		f.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Dialog c = new Dialog(Menu.this);
-				c.setContentView(R.layout.hound);
-				c.show();
+				startActivity(new Intent(com.example.runspyrun.Menu.this, com.example.runspyrun.Gameplay.class));	
 			}
 		});
 		
