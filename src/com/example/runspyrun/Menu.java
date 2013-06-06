@@ -8,13 +8,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
+//Main Menu, contains links to AttackDefend, Gameplay, Settings, Ranking, Setting, Profile and Credit
 public class Menu extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Set layout
 		setContentView(R.layout.menu);
 		
+		//Add Profile button and make it link to Profile
 		ImageButton a = (ImageButton) findViewById(R.id.iB_profile);
 		a.setOnClickListener(new OnClickListener() {
 			@Override
@@ -23,6 +26,7 @@ public class Menu extends Activity {
 			}
 		});
 		
+		//Add Rankings button and make it link to Ranking
 		ImageButton b = (ImageButton) findViewById(R.id.iB_rank);
 		b.setOnClickListener(new OnClickListener() {
 			@Override
@@ -31,6 +35,7 @@ public class Menu extends Activity {
 			}
 		});
 		
+		//Add Profile Settings and make it link to Setting
 		ImageButton c = (ImageButton) findViewById(R.id.iB_settings);
 		c.setOnClickListener(new OnClickListener() {
 			@Override
@@ -39,6 +44,7 @@ public class Menu extends Activity {
 			}
 		});
 		
+		//Add Credits button and make it link to Credit
 		ImageButton d = (ImageButton) findViewById(R.id.iB_credit);
 		d.setOnClickListener(new OnClickListener() {
 			@Override
@@ -47,6 +53,7 @@ public class Menu extends Activity {
 			}
 		});
 		
+		//Add FindGame button and make it link to AttackDefend
 		ImageButton e = (ImageButton) findViewById(R.id.iB_findgame);
 		e.setOnClickListener(new OnClickListener() {
 			@Override
@@ -55,6 +62,7 @@ public class Menu extends Activity {
 			}
 		});
 		
+		//Add Gameplay (help) button and make it link to Gameplay
 		ImageButton f = (ImageButton) findViewById(R.id.iB_gameplay);
 		f.setOnClickListener(new OnClickListener() {
 			@Override

@@ -51,39 +51,75 @@ import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.*;
 
+//Defend Activity, allows users to select obstacles and place them onto a map, they can
+//then save this course and play it later.
 public class DefendActivity extends FragmentActivity {
 
+	//Google map object
 	private GoogleMap mMap;
+	
+	//<Old, possibly unnecessary code>
+	//Android class for handling location information
 	private LocationManager locationManager;
+	//Android layout
 	private LinearLayout mLinearLayout;
+	//</Old, possibly unnecessary code>
+	
+	//String that determines what type of obstacle will be placed on map
 	private String dragging = "";
+	//Reference to Hack In marker
 	private Marker inMarker = null;
+	//Reference to Hack out marker
 	private Marker outMarker = null;
+	//Boolean that holds whether the course file is readable
 	private Boolean isReadable = false;
+	//Boolean that holds whether the course file is writable
 	private Boolean isWritable = false;
+	//A vector of all markers currently on the map
 	private Vector<Marker> markers = new Vector<Marker>();
+	//A hashmap that contains the markers on the map, as well as their location, used
+	//to return markers to old positions after being dragged to illegal positions
 	private HashMap<String, LatLng> markerLocations = new HashMap<String, LatLng>(20);
+	//Maps bound object that defines the bounds markers can be placed within
 	private LatLngBounds bounds;
+	//The minimum distance allowed between obstacles (in metres)
 	private double minDist = 10;
+	//The width of the course (in metres)
 	private float width = 800;
+	//The height of the course (in metres)
 	private float height = 800;
+	//Map polgyon class
 	private Polygon polygon;
     @SuppressWarnings("deprecation")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Set layout
         setContentView(R.layout.defend);
+        //Create scrolling list of obstacles
         HorizontalScrollView hView = (HorizontalScrollView) findViewById(R.id.iconlist);
+        //Android context, to be used as reference by listeners
         final Context context = this;
+        
+        //Check if read/write access is allowed
         isReadable = isExternalStorageReadable();
         isWritable = isExternalStorageWritable();
+        
+        //The default centre position of map (St Lucia's Great Court)
         LatLng positionCenter = new LatLng(-27.497307,153.013102);
+        
+        //Checks if latitude and longitude were given by AttackDefend, if so, makes them
+        //the centre position
         Bundle extras = getIntent().getExtras();
         if(extras != null){
         	positionCenter = new LatLng(extras.getDouble("latitude"), extras.getDouble("longitude"));
         }
         final LatLng fCenter = positionCenter;
+        
+        //Function that creates map object with initial values
         setUpMapIfNeeded(fCenter);
+        
+        //Creates bounds from width and height
         Double hypot = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
         bounds = new LatLngBounds(findLatLng(fCenter, hypot,225.0), findLatLng(fCenter, hypot, 45.0));
         final PolygonOptions pOptions = new PolygonOptions()
@@ -91,13 +127,15 @@ public class DefendActivity extends FragmentActivity {
    			 findLatLng(fCenter, hypot, 135.0),
    			 findLatLng(fCenter, hypot, 225.0),
    			 findLatLng(fCenter, hypot, 315.0));
+        //Creates a rectangular polygon object that shows the map's bounds
         polygon = mMap.addPolygon(pOptions);
+        
+        //Creates centre button
         Button cButton = (Button)findViewById(R.id.Centre);
         cButton.setOnClickListener(new OnClickListener(){
-        
+        	//Listener that resets that cameraPosition on click
 			@Override
 			public void onClick(View arg0) {
-				//mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fCenter, 15));
 				CameraPosition cameraPosition = new CameraPosition.Builder()
 													.target(fCenter)
 													.zoom(15)
@@ -109,9 +147,10 @@ public class DefendActivity extends FragmentActivity {
         	
         });
         
+        //Creates clear button
         Button clearButton = (Button)findViewById(R.id.Clear);
         clearButton.setOnClickListener(new OnClickListener(){
-
+        	//Listener that deletes all markers on map on click
 			@Override
 			public void onClick(View v) {
 				mMap.clear();
@@ -126,6 +165,7 @@ public class DefendActivity extends FragmentActivity {
         	
         });
         
+        //Adds three images of obstacles to scrollbar
         final ImageView imageView = (ImageView) findViewById(R.id.mine);
         imageView.setTag("mine");
         
@@ -136,7 +176,7 @@ public class DefendActivity extends FragmentActivity {
         outView.setTag("hackout");
         
         OnClickListener cListener = new View.OnClickListener(){
-
+        	//Listener that changes the selects an obstacle when its image is clicked
 			@Override
 			public void onClick(View v) {
 				dragging = (String) v.getTag();
@@ -151,14 +191,18 @@ public class DefendActivity extends FragmentActivity {
         inView.setOnClickListener(cListener);
         imageView.setOnClickListener(cListener);
         
+        //Creates textbox for entering course name
         final EditText courseName = (EditText) findViewById(R.id.name);
-        //a motion event listener would work better
-        mMap.setOnMapClickListener(new OnMapClickListener(){
 
+        mMap.setOnMapClickListener(new OnMapClickListener(){
+        	//Listener that adds obstacles to map
 			@Override
 			public void onMapClick(LatLng point) {
+				//Checks if any obstacle is selected
 				if(dragging != "")
 				{
+					//Checks if the point clicked isn't too close to another, existing 
+					//marker
 					float[] tempV = new float[1];
 					Boolean lengthCheck = true;
 					for(Marker m : markers){
@@ -168,6 +212,7 @@ public class DefendActivity extends FragmentActivity {
 					
 					if(lengthCheck && bounds.contains(point))
 					{
+						//For mine obstacles
 						if(dragging == "mine")
 						{
 							Marker tempMarker = mMap.addMarker(new MarkerOptions()
@@ -179,8 +224,10 @@ public class DefendActivity extends FragmentActivity {
 							markerLocations.put(tempMarker.getId(), tempMarker.getPosition());
 							
 						}
+						//For hackin obstacles
 						if(dragging == "hackin")
 						{
+							//There can be only one hackin marker, so old one is replaced
 							if(inMarker != null)
 							{
 								inMarker.remove();
@@ -193,8 +240,10 @@ public class DefendActivity extends FragmentActivity {
 							markers.add(inMarker);
 							markerLocations.put(inMarker.getId(), inMarker.getPosition());
 						}
+						//For hackout obstacles
 						if(dragging == "hackout")
 						{
+							//There can be only one hackin marker, so old one is replaced
 							if(outMarker != null)
 							{
 								outMarker.remove();
@@ -215,7 +264,7 @@ public class DefendActivity extends FragmentActivity {
         });
         
         mMap.setOnMarkerDragListener(new OnMarkerDragListener(){
-
+        	//Listener to prevent markers from being dragged into illegal positions
         	private LatLng originalPosition;
 			@Override
 			public void onMarkerDrag(Marker arg0) {
@@ -225,6 +274,7 @@ public class DefendActivity extends FragmentActivity {
 
 			@Override
 			public void onMarkerDragEnd(Marker arg0) {
+				//Checks is new position is too close to existing markers
 				float[] tempV = new float[1];
 				Boolean lengthCheck = true;
 				for(Marker m : markers){
@@ -235,9 +285,11 @@ public class DefendActivity extends FragmentActivity {
 						lengthCheck = false;}
 					}
 				}
+				//Add marker if it isn't too close to other markers and is within bounds
 				if(!lengthCheck || !bounds.contains(arg0.getPosition())){
 					arg0.setPosition(originalPosition);
 				}
+				//Move marker back to original position
 				else
 				{
 					markerLocations.remove(arg0.getId());
@@ -245,7 +297,7 @@ public class DefendActivity extends FragmentActivity {
 				}
 				
 			}
-
+			//Save original position of marker 
 			@Override
 			public void onMarkerDragStart(Marker arg0) {
 				originalPosition = markerLocations.get(arg0.getId());
@@ -254,7 +306,9 @@ public class DefendActivity extends FragmentActivity {
         	
         });
         
+        //Create save button
         Button button = (Button) findViewById(R.id.save);
+        //Listener that saves the course to file when clicked
         button.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
 			public void onClick(View v) {
@@ -302,6 +356,7 @@ public class DefendActivity extends FragmentActivity {
     
 
     /** Checks whether two providers are the same */
+    //Probably unnecessary now
     private boolean isSameProvider(String provider1, String provider2) {
         if (provider1 == null) {
           return provider2 == null;
@@ -309,6 +364,7 @@ public class DefendActivity extends FragmentActivity {
         return provider1.equals(provider2);
     }
     
+    //Saves course to file given, returns true if successful, false otherwise
     private Boolean courseToFile(File fname, String courseName){
     	String lineSep = System.getProperty("line.separator");
     	try {
@@ -355,6 +411,8 @@ public class DefendActivity extends FragmentActivity {
         return false;
     }
     
+    //Function that returns the LatLng of a point, given the angle (in degrees) and
+    //distance from (in metres) of a LatLng point.
     private LatLng findLatLng(LatLng point, Double dist, Double theta)
     {
     	if(dist == 0 || point == null)

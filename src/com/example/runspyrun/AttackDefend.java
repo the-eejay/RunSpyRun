@@ -14,6 +14,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
+//Activity that allows players to choose between attacking and defending
+//to be replaced by map based activity as explained in proposal
+//links to DefendActivity and CourseListActivity
 public class AttackDefend extends Activity {
     
 	private EditText addressEdit;
@@ -21,13 +24,19 @@ public class AttackDefend extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Set layout
         setContentView(R.layout.activity_main);
+        //Add text edit for address
         addressEdit = (EditText)findViewById(R.id.address);
     }
     
     @SuppressLint("NewApi")
+    //Opens DefendActivity
 	public void makeCourse(View view) {
     	Intent intent = new Intent(this, DefendActivity.class);
+    	//If the address isn't empty, fetches the first location returned from the string
+    	//(if any) and add the longitude and latitude as extras (passes the values to the
+    	//new activity)
     	if(!addressEdit.getText().toString().isEmpty()){
     	Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());     
     	 try {
@@ -41,11 +50,11 @@ public class AttackDefend extends Activity {
     	startActivity(intent);
     }
     
+    //Opens CourseListActivity
     public void playCourse(View view) {
     	Intent intent = new Intent(this, CourseListActivity.class);
     	startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

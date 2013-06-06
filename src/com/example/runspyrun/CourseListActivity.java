@@ -21,18 +21,23 @@ import android.widget.Toast;
 
 public class CourseListActivity extends Activity {
 	
+	//Parser to retrieve course data from file
 	private CourseReader courseReader;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//Sets layout
 		setContentView(R.layout.activity_courselist);
-	
+		
+		//Scrollable list view
 		final ListView listView = (ListView) findViewById(R.id.listview);
 		
 		try {
 			courseReader = new CourseReader(this);
 			final ArrayList<Course> courseList = courseReader.getCourses();
+			
+			//Iterates through the courselist and creates a list of course names
 			Iterator<Course> iter = courseList.iterator();
 			List<String> names = new ArrayList<String>();
 			for (int i = 0; i < courseList.size(); ++i) {
