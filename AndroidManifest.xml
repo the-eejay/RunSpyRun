@@ -81,6 +81,11 @@
         <activity android:name="Registration" android:screenOrientation="portrait"></activity>
         <activity android:name="Setting" android:screenOrientation="portrait"></activity>
         <activity android:name="AttackDefend" android:screenOrientation="portrait"></activity>
+        <activity android:name="Camera" android:screenOrientation="portrait"></activity>
+        <activity android:name="FalsePoint" android:screenOrientation="portrait"></activity>
+        <activity android:name="Hound" android:screenOrientation="portrait"></activity>
+        <activity android:name="Jammer" android:screenOrientation="portrait"></activity>
+        <activity android:name="Mine" android:screenOrientation="portrait"></activity>
         <meta-data
 		    android:name="com.google.android.maps.v2.API_KEY"
 		    android:value="AIzaSyDdCbJc89ALTqKEU7R4tyjQkVuBmEidM2g"/>

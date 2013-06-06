@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background" >
+    
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="97dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:maxHeight="500dp"
+        android:maxWidth="280dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/obstacle_box" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/falsehack" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/imageView2"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginLeft="15dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/returnn" />
+
+    <ImageButton
+        android:id="@+id/ibnext"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignTop="@+id/imageView1"
+        android:background="@android:color/transparent"
+        android:maxHeight="20dp"
+        android:maxWidth="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/obstacle_next" />
+
+    <ImageButton
+        android:id="@+id/ibback"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_toLeftOf="@+id/ibnext"
+        android:background="@android:color/transparent"
+        android:maxHeight="20dp"
+        android:maxWidth="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/obstacle_back" />
+
+</RelativeLayout>
