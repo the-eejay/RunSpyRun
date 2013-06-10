@@ -51,41 +51,19 @@ import android.support.v4.app.NavUtils;
 
 public class AttackActivity extends Activity implements LocationListener, ArchitectUrlListener {
 
+	// Needed for Wikitude
 	private ArchitectView architectView;
+	
+	// Location stuff
 	private LocationManager locManager;
-	private Location loc;
-	private PoiBean hackInBean;
-	private PoiBean hackOutBean;
-	private List<PoiBean> landMineBeans = new ArrayList<PoiBean>();
-	private Location hackInLoc;
-	private Location hackOutLoc;
+	private Location loc; // stores players current location
+	private Location hackInLoc; // Hack In Point
+	private Location hackOutLoc; // Hack Out Point
 	private List<Location> landMineLocs = new ArrayList<Location>();
-	private TextView myText;
+	
 	private String courseName;
 	private Course course;
 	private CourseReader cr;
-	private final double[] courseOne = {
-			-27.562396,
-			153.04050, // Hack In Point
-			-27.562384,
-			153.039701, // Hack Out Point
-			-27.561757,
-			153.042104, // Landmines
-			-27.562803,
-			153.042705,
-			-27.563221,
-			153.041782,
-			};
-	private final double[] courseTwo = {
-			-27.499983,
-			153.014655, // Hack In Point
-			-27.500972,
-			153.013372, // Hack Out Point
-			-27.50073,
-			153.014579, // Landmines]
-			-27.500801,
-			153.015411,
-	};
 	private boolean gameStarted = false;
 	
 	final double accuracy = 0.0005;
@@ -100,9 +78,17 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
+		if (!ArchitectView.isDeviceSupported(this)) {
+			// Phone must have a camera
+			Toast.makeText(this, "minimum requirements not fulfilled",
+					Toast.LENGTH_LONG).show();
+			this.finish();
+			return;
+		}
+		
 		Bundle extras = getIntent().getExtras();
 		
-		courseName = extras.getString("COURSE");
+		courseName = extras.getString("COURSE"); // Course name gets taken from previous activity
 		
 		try {
 			cr = new CourseReader(this);
@@ -111,22 +97,14 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 			e.printStackTrace();
 		}
 		
+		// Search for course based on its name
 		ArrayList<Course> courseList = cr.getCourses();
-		
 		Iterator<Course> it = courseList.iterator();
-		
 		while (it.hasNext()) {
 			course = it.next();
 			if (course.getName().equals(courseName)) {
 				break;
 			}
-		}
-		
-		if (!ArchitectView.isDeviceSupported(this)) {
-			Toast.makeText(this, "minimum requirements not fulfilled",
-					Toast.LENGTH_LONG).show();
-			this.finish();
-			return;
 		}
 		
 		setContentView(R.layout.activity_course);
@@ -137,11 +115,12 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 		
 		int UPDATE_INTERVAL = 5 * 1000; // 5 seconds
 		
+		// Request a new location every 5 seconds and store it in loc
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, UPDATE_INTERVAL, 0, this);
-		
 		loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		while (loc == null);
+		while (loc == null); // We should get a location before we move on
+		
 		return;
 	}
 	
@@ -164,7 +143,7 @@ public class AttackActivity extends Activity implements LocationListener, Archit
     	this.architectView.registerUrlListener(this);
     	
     	try {
-			loadSampleWorld();
+			loadWorld();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -222,7 +201,8 @@ public class AttackActivity extends Activity implements LocationListener, Archit
     };
 	
 	
-	private void loadSampleWorld() throws IOException {
+	private void loadWorld() throws IOException {
+		/** Loads the world into user's camera view */
 		this.architectView.load("tutorial1.html");
 		
 		JSONArray array = new JSONArray();
@@ -270,24 +250,30 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 		String text = "";
 		if (!gameStarted) {
 			if (loc.distanceTo(hackInLoc) <= PROXIMITY && !gameStarted) {
+				// Player starts the game by being near hack in point
 				text = "Game Started!\n";
 				builder.setMessage("Game started! Get to the end! Avoid the landmines!").show();
 				gameStarted = true;
 			} else {
+				// Player has not yet reached hack in point
 				text = "Distance to Hack In Point is " + df.format(loc.distanceTo(hackInLoc)) + " metres\n";
 			}
 		} else {
+			// Game is started
 			if (loc.distanceTo(hackOutLoc) <= PROXIMITY) {
+				// Player reached the hack out point
 				text = "You win!\n";
 				builder.setMessage("You got to the Hack Out Point! You win!").show();
 				gameStarted = false;
 			} else {
+				// Player has not yet reached the hack out point
 				text = "Distance to Hack Out Point is " + df.format(loc.distanceTo(hackOutLoc)) + " metres\n";
 			}
 			
 			if (distanceToClosestMine() <= PROXIMITY) {
+				// Player hit a land mine
 				text = "You just walked over the land mine.  Game Over.";
-				builder.setMessage("You just got blown up.\n  Why would you get blown up?\n" +
+				builder.setMessage("You just got blown up.\nWhy would you get blown up?\n" +
 						"You'll never make it as a spy if you get blown up.").show();
 				gameStarted = false;
 			} else {
@@ -301,14 +287,15 @@ public class AttackActivity extends Activity implements LocationListener, Archit
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
+		// Would like this message to display permanently.  Above is my incorrect attempt.
+		// Displaying it with a Toast message for now.
 		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
 		
 	}
 	
 	private float distanceToClosestMine() {
+		// Returns the current distance to the nearest landmine
 		float closestDistance = 0;
 		Location temp;
 		Iterator<Location> iter = landMineLocs.iterator();

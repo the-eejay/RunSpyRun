@@ -15,6 +15,9 @@ import android.os.Environment;
 import android.widget.Toast;
 
 public class CourseReader {
+	/** This class reads courses from the user's external storage
+	 *  and stores the courses in its own list.
+	 */
 	private List<Course> courses = new ArrayList<Course>();
 	private File file;
 	
@@ -29,9 +32,11 @@ public class CourseReader {
 			while ((line = reader.readLine()) != null) {
 				String[] tokens = line.split(",");
 				if (tokens[0].startsWith("END")) {
+					// End of course
 					courses.add(course);
 					course = new Course();
 				} else if (tokens[0].equals("mine")) {
+					// Add a mine to the course
 					PoiBean mine = new PoiBean(
 							"3",
 							"Detection Plate",
@@ -43,6 +48,7 @@ public class CourseReader {
 					);
 					course.addMine(mine);
 				} else if (tokens[0].equals("hackin")) {
+					// Add a Hack In Point
 					PoiBean hackIn = new PoiBean(
 							"1",
 							"Hack In Point",
@@ -54,6 +60,7 @@ public class CourseReader {
 					);
 					course.setHackInPoint(hackIn);
 				} else if (tokens[0].equals("hackout")) {
+					// Add a Hack Out Point
 					PoiBean hackOut = new PoiBean(
 							"2",
 							"Hack Out Point",
